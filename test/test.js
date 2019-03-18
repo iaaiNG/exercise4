@@ -4,15 +4,23 @@ describe('this', function () {
       say: function () {
         setTimeout(() => {
           // this 是什么？想想为什么？
-          this.should.equal(null)
+          this.should.equal(obj)
           done()
         }, 0)
       }
     }
     obj.say()
-  }) 
+  })
 
-  it('global', function () {
+  it('global1', function () {
+    function test() {
+      // this 是什么？想想为什么？
+      should.equal(this, global)
+    }
+    test()
+  })
+  // 这里有点懵了
+  it('global2', function () {
     function test() {
       // this 是什么？想想为什么？
       this.should.equal(null)
@@ -25,10 +33,11 @@ describe('this', function () {
       var obj = {
         say: function () {
           function _say() {
-            // this 是什么？想想为什么？
-            this.should.equal(null)
+            // this 是什么？想想为什么？ 
+            should.equal(this, global)
           }
           return _say.bind(obj)
+          // 此时obj是undfined, 而bind函数如果传递undefined/null相当于不传，此时this指向全局对象global
         }()
       }
       obj.say()
@@ -38,8 +47,8 @@ describe('this', function () {
       var obj = {}
       obj.say = function () {
         function _say() {
-          // this 是什么？想想为什么？
-          this.should.equal(null)
+          // 此时obj是{}, 而bind函数把_say里的this绑定给obj
+          this.should.equal(obj)
         }
         return _say.bind(obj)
       }()
