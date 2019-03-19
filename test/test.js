@@ -19,14 +19,6 @@ describe('this', function () {
     }
     test()
   })
-  // 这里有点懵了
-  it('global2', function () {
-    function test() {
-      // this 是什么？想想为什么？
-      this.should.equal(null)
-    }
-    test()
-  })
 
   describe('bind', function () {
     it('bind undefined', function () {
