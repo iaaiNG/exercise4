@@ -3,7 +3,7 @@ describe('this', function () {
     var obj = {
       say: function () {
         setTimeout(() => {
-          // this 是什么？想想为什么？
+          // 箭头函数改变上下文
           this.should.equal(obj)
           done()
         }, 0)
@@ -14,7 +14,7 @@ describe('this', function () {
 
   it('global1', function () {
     function test() {
-      // this 是什么？想想为什么？
+      // this 指向全局
       should.equal(this, global)
     }
     test()
